@@ -34,6 +34,19 @@
                        (.print out (.toString x))
                        (.print out "\""))})
 
+(extend java.lang.Double Write-JSON
+        {:write-json (fn [x #^PrintWriter out escape-unicode?]
+                       (if (.isNaN x)
+                         (throw (IllegalArgumentException.))
+                         (.print out (.toString x)))
+                       )})
+
+(extend java.lang.Float Write-JSON
+        {:write-json (fn [x #^PrintWriter out escape-unicode?]
+                       (if (.isNaN x)
+                         (throw (IllegalArgumentException.))
+                         (.print out (.toString x)))
+                       )})
 
 (comment
   (.print (ISODateTimeFormat/dateTime ) (org.joda.time.DateTime. ))
